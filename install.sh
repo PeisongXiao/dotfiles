@@ -9,5 +9,8 @@ mkdir -p "${HOME}/.config/nvim"
 
 cp "init.lua" "${HOME}/.config/nvim/"
 
+nvim --headless "+Lazy! sync" +qall
+nvim --headless "+TSUpdateSync" +qall
+
 curl -LO "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
 tic -x alacritty.info
