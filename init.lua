@@ -59,24 +59,30 @@ vim.opt.undofile = true
 vim.opt.backup = false
 vim.opt.swapfile = false
 
--- Folding: Tree-sitter driven
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99
 vim.cmd("colorscheme onedark")
 
 -- ===============================
 -- Tree-sitter
 -- ===============================
-require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "c", "cpp", "lua", "python", "go",
-    "verilog", "bash", "json", "yaml",
-    "markdown"
-  },
-  highlight = { enable = true },
-  indent = { enable = true },
-					})
+local ok_ts, ts_configs = pcall(require, "nvim-treesitter.configs")
+if ok_ts then
+  ts_configs.setup({
+    ensure_installed = {
+      "c", "cpp", "lua", "python", "go",
+      "verilog", "bash", "json", "yaml",
+      "markdown"
+    },
+    highlight = { enable = true },
+    indent = { enable = true },
+  })
+
+  -- Folding: Tree-sitter driven
+  vim.opt.foldmethod = "expr"
+  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+  vim.opt.foldlevel = 99
+else
+  vim.opt.foldmethod = "manual"
+end
 
 -- ===============================
 -- LSP
