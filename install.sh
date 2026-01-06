@@ -7,6 +7,5 @@ sudo apt-get install -y neovim ripgrep
 
 mkdir -p "${HOME}/.config/nvim"
 
-if [ ! -d "${HOME}/.config/nvim" ]; them
-        cp "${HOME}/.config/coderv2/dotfiles/init.lua" "${HOME}/.config/nvim/"
-fi
+
+cp "init.lua" "${HOME}/.config/nvim/"
