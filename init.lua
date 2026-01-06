@@ -16,9 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 -- ===============================
 require("lazy").setup({
 
-  -- LSP
-  "neovim/nvim-lspconfig",
-
   {
      "navarasu/onedark.nvim",
      lazy = false,
@@ -83,65 +80,6 @@ if ok_ts then
 else
   vim.opt.foldmethod = "manual"
 end
-
--- ===============================
--- LSP
--- ===============================
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local servers = {
-  clangd = {},
-  pyright = {},
-  gopls = {},
-  verible = {},
-  lua_ls = {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-      },
-    },
-  },
-}
-
-for name, opts in pairs(servers) do
-  vim.lsp.config[name] = {
-    capabilities = capabilities,
-    settings = opts.settings,
-    flags = {
-      debounce_text_changes = 200,
-    },
-  }
-end
-
-vim.lsp.enable({
-  "clangd",
-  "pyright",
-  "gopls",
-  "verible",
-  "lua_ls",
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-  end,
-})
-
--- ===============================
--- Diagnostics
--- ===============================
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-})
 
 -- ===============================
 -- UI
