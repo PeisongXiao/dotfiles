@@ -7,5 +7,7 @@ sudo apt-get install -y neovim ripgrep
 
 mkdir -p "${HOME}/.config/nvim"
 
-
 cp "init.lua" "${HOME}/.config/nvim/"
+
+curl -LO "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
+tic -x alacritty.info
